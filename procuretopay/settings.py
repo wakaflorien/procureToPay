@@ -29,7 +29,13 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-v3fu=d__+3cimliinnm!vd(vw-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
+# Allow all hosts if ALLOWED_HOSTS is not set (for debugging)
+ALLOWED_HOSTS_ENV = os.getenv('ALLOWED_HOSTS', '')
+if ALLOWED_HOSTS_ENV:
+    ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS_ENV.split(',') if host.strip()]
+else:
+    # Default to allow all hosts (less secure but helps with debugging)
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
