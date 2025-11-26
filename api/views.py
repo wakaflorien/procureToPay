@@ -18,6 +18,7 @@ from .serializers import (
 from .permissions import IsStaff, IsApprover, IsStaffOrFinance, IsFinance
 from django.http import FileResponse, Http404
 from .document_processor import DocumentProcessor
+from .notifications import send_approval_notification, send_rejection_notification
 
 
 class PurchaseRequestViewSet(viewsets.ModelViewSet):
@@ -170,7 +171,7 @@ class PurchaseRequestViewSet(viewsets.ModelViewSet):
                 )
             
             # Create approval record
-            Approval.objects.create(
+            approval = Approval.objects.create(
                 request=purchase_request,
                 approver=request.user,
                 level=level,
@@ -189,6 +190,15 @@ class PurchaseRequestViewSet(viewsets.ModelViewSet):
                 )
                 purchase_request.purchase_order_data = po_data
                 purchase_request.save()
+            
+            # Send email notification
+            try:
+                send_approval_notification(purchase_request, approval)
+            except Exception as e:
+                # Log error but don't fail the approval
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Failed to send approval notification: {str(e)}")
         
         return Response(
             PurchaseRequestSerializer(purchase_request, context={'request': request}).data,
@@ -241,7 +251,7 @@ class PurchaseRequestViewSet(viewsets.ModelViewSet):
                 level = 'level_1' if request.user.is_approver_level_1() else 'level_2'
             
             # Create approval record
-            Approval.objects.create(
+            approval = Approval.objects.create(
                 request=purchase_request,
                 approver=request.user,
                 level=level,
@@ -251,6 +261,15 @@ class PurchaseRequestViewSet(viewsets.ModelViewSet):
             
             # Reject the request
             purchase_request.reject()
+            
+            # Send email notification
+            try:
+                send_rejection_notification(purchase_request, approval)
+            except Exception as e:
+                # Log error but don't fail the rejection
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Failed to send rejection notification: {str(e)}")
         
         return Response(
             PurchaseRequestSerializer(purchase_request, context={'request': request}).data,
