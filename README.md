@@ -112,8 +112,8 @@ docker compose exec backend python manage.py createsuperuser
 ```
 
 3. **Access the application**
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:8000
+- Frontend: http://localhost:3000/login/
+- Backend API: http://localhost:8000/api/
 - Swagger Docs: http://localhost:8000/swagger/
 
 ## API Endpoints
