@@ -1,0 +1,53 @@
+# Render Blueprint for ProcureToPay Application
+# This file defines all services needed for deployment
+# Deploy via: https://dashboard.render.com/new/blueprint
+
+services:
+  # PostgreSQL Database
+  - type: pspg
+    name: procuretopay-db
+    plan: free  # Change to starter or standard for production
+    databaseName: procuretopay
+    user: procuretopay_user
+
+  # Django Backend API
+  - type: web
+    name: procuretopay-backend
+    runtime: python
+    plan: free  # Change to starter or standard for production
+    buildCommand: pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py collectstatic --noinput
+    startCommand: gunicorn procuretopay.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+      - key: DATABASE_URL
+        fromDatabase:
+          name: procuretopay-db
+          property: connectionString
+      - key: ALLOWED_HOSTS
+        sync: false  # Set this manually in Render dashboard to your backend URL
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false  # Set this manually to your frontend URL
+    healthCheckPath: /api/
+
+  # React Frontend (Static Site)
+  - type: web
+    name: procuretopay-frontend
+    runtime: node
+    plan: free  # Change to starter or standard for production
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: NODE_VERSION
+        value: 18.18.0
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: procuretopay-backend
+          property: host
+          format: https://${host}/api
+
