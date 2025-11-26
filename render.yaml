@@ -4,7 +4,7 @@
 
 services:
   # PostgreSQL Database
-  - type: pspg
+  - type: pg
     name: procuretopay-db
     plan: free  # Change to starter or standard for production
     databaseName: procuretopay
