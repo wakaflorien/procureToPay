@@ -67,3 +67,6 @@ frontend/yarn-error.log*
 *.seed
 *.pid.lock
 
+# Render
+RENDER_DEPLOYMENT.md
+RENDER_QUICKSTART.md
