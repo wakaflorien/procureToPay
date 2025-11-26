@@ -1,7 +1,21 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import type { RegisterData, AuthResponse, User, PurchaseRequest } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+// Get API URL from environment variable or construct from current origin
+const getApiBaseUrl = (): string => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (envUrl) {
+    return envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`;
+  }
+  // Fallback: if on Render, try to construct from current origin
+  if (typeof window !== 'undefined' && window.location.origin.includes('onrender.com')) {
+    // This is a fallback - ideally VITE_API_URL should be set at build time
+    return 'https://procuretopay-backend-26ui.onrender.com/api';
+  }
+  return 'http://localhost:8000/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 const api = axios.create({
   baseURL: API_BASE_URL,

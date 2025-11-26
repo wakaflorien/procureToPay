@@ -70,3 +70,9 @@ frontend/yarn-error.log*
 # Render
 RENDER_DEPLOYMENT.md
 RENDER_TROUBLESHOOTING.md
+
+Login credentials:
+  staff1 / staff123 (staff)
+  approver1 / approver123 (approver_level_1)
+  approver2 / approver123 (approver_level_2)
+  finance1 / finance123 (finance)
