@@ -2,7 +2,7 @@
 # This file defines all services needed for deployment
 # Deploy via: https://dashboard.render.com/new/blueprint
 
-services:
+databases:
   # PostgreSQL Database
   - type: postgres
     name: procuretopay-db
@@ -10,6 +10,7 @@ services:
     databaseName: procuretopay
     user: procuretopay_user
 
+services:
   # Django Backend API
   - type: web
     name: procuretopay-backend
