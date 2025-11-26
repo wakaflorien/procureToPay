@@ -125,9 +125,15 @@ jobs:
           echo "To deploy, update your docker-compose.yml or deployment configuration"
           echo "to use the new images, or trigger your deployment pipeline."
 
-      # Add your deployment steps here
-      # Examples:
-      # - Deploy to Render, AWS ECS, Kubernetes, etc.
-      # - Update docker-compose.yml
-      # - Trigger webhook to deployment service
+      - name: Deploy Backend to Render
+        run: |
+          echo "🚀 Triggering backend deployment on Render..."
+          curl -X POST "${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}"
+          echo "✅ Backend deployment triggered"
+
+      - name: Deploy Frontend to Render
+        run: |
+          echo "🚀 Triggering frontend deployment on Render..."
+          curl -X POST "${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}"
+          echo "✅ Frontend deployment triggered"
 
