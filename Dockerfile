@@ -26,7 +26,9 @@ RUN python manage.py collectstatic --noinput || true
 # Expose port
 EXPOSE 8000
 
-# Run migrations and start server
-CMD python manage.py migrate && \
+# Run migrations, create sample users, and start server
+CMD python manage.py makemigrations && \
+    python manage.py migrate && \
+    python manage.py create_sample_users && \
     gunicorn procuretopay.wsgi:application --bind 0.0.0.0:8000 --workers 3
 

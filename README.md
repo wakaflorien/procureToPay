@@ -69,10 +69,10 @@ python manage.py migrate
 # Show migrations
 python manage.py showmigrations
 
-# Create superuser
+# Create superuser (required for admin access)
 python manage.py createsuperuser
 
-# Create sample users (optional)
+# Create sample users (recommended for multiple testing users and used when building Docker images)
 python manage.py create_sample_users
 
 # Run development server
@@ -105,11 +105,10 @@ This will start:
 
 2. **Create superuser and sample users**
 ```bash
-# Create superuser
+# Sample users for all roles are created automatically on container startup
+# via `python manage.py create_sample_users` in the backend container command.
+# You only need to create a Django superuser for admin access:
 docker compose exec backend python manage.py createsuperuser
-
-# Create sample users (optional)
-docker compose exec backend python manage.py create_sample_users
 ```
 
 3. **Access the application**
@@ -279,6 +278,11 @@ docker-compose -f docker-compose.prod.yml build
 
 # Run production containers
 docker-compose -f docker-compose.prod.yml up -d
+
+# Sample users for all roles are created automatically on container startup
+# via `python manage.py create_sample_users` in the backend image CMD.
+# You only need to create a Django superuser for admin access:
+docker-compose -f docker-compose.prod.yml exec backend python manage.py createsuperuser
 ```
 
 ## API Documentation
