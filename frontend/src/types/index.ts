@@ -33,7 +33,7 @@ export interface PurchaseRequest {
   description: string;
   amount: string;
   status: 'pending' | 'approved' | 'rejected' | 'cancelled';
-  created_by: string;
+  created_by: User | string; // User object in detail view, string in list view
   created_at: string;
   updated_at: string;
   proforma?: string;
