@@ -71,7 +71,7 @@ ROOT_URLCONF = 'procuretopay.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'api' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -209,3 +209,21 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+
+# Email Settings
+# Default to console backend for development, use SMTP for production/testing
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER or 'noreply@procuretopay.com')
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:3000')
+
+# Ethereal Email (for testing) - automatically configured if EMAIL_HOST is smtp.ethereal.email
+if EMAIL_HOST == 'smtp.ethereal.email':
+    # Ethereal-specific settings
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+
