@@ -434,7 +434,7 @@ const RequestDetail: React.FC = () => {
   const canApprove = approverCanAct || adminOverrideAvailable;
   // Can download documents if: approver, finance, or admin
   const canDownloadDocuments = isApprover || isFinance || isAdmin;
-  const isOwner = request.created_by.id === user.id;
+  const isOwner = typeof request.created_by === 'object' && request.created_by.id === user.id;
   // Can edit if: user is owner, status is pending, and request hasn't been approved
   const canEdit =
     isOwner &&
@@ -895,7 +895,7 @@ const RequestDetail: React.FC = () => {
         <div>
           <h1 className="text-2xl font-semibold">{request.title}</h1>
           <p className="text-sm text-muted-foreground">
-            Created by {request.created_by.username} on{" "}
+            Created by {typeof request.created_by === 'object' ? request.created_by.username : request.created_by} on{" "}
             {new Date(request.created_at).toLocaleString()}
           </p>
         </div>

@@ -119,7 +119,7 @@ const Dashboard: React.FC = () => {
                     <TableCell className="font-medium">{request.title}</TableCell>
                     <TableCell>RWF {parseFloat(request.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</TableCell>
                     <TableCell>{getStatusBadge(request.status)}</TableCell>
-                    <TableCell>{request.created_by || 'N/A'}</TableCell>
+                    <TableCell>{typeof request.created_by === 'object' ? request.created_by.username : request.created_by || 'N/A'}</TableCell>
                     <TableCell>{new Date(request.created_at).toLocaleDateString()}</TableCell>
                     <TableCell>
                       <Button asChild variant="outline" size="sm">

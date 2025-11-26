@@ -67,7 +67,7 @@ const ProformaInvoiceForm: React.FC<ProformaInvoiceFormProps> = ({
   };
 
   const calculateGrandTotal = (): number => {
-    return watchedItems.reduce((sum, item, index) => {
+    return watchedItems.reduce((sum, _, index) => {
       return sum + calculateItemTotal(index);
     }, 0);
   };
