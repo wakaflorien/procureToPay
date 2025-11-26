@@ -21,11 +21,17 @@ const Login: React.FC = () => {
 
     try {
       await login(username, password);
-      toast.success('Login successful!');
+      toast.success('Login successful!', {
+        description: 'Redirecting to dashboard...',
+        duration: 3000,
+      });
       navigate('/');
     } catch (err) {
       const axiosError = err as AxiosError<{ detail?: string }>;
-      toast.error(axiosError.response?.data?.detail || 'Login failed. Please check your credentials.');
+      toast.error(axiosError.response?.data?.detail || 'Login failed. Please check your credentials.', {
+        description: 'Please try again.',
+        duration: 3000,
+      });
     } finally {
       setLoading(false);
     }
