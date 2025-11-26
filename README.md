@@ -322,15 +322,6 @@ procuretopay/
 
 ## License
 
-This project is part of a technical assessment for IST Africa.
-
-## Contact
-
-For questions or issues, please contact:
-- denis.niwemugisha@ist.com
-- blaise.bakundikize@ist.com
-- alain.buriding@ist.com
-
 ## Notes
 
 - The system uses JWT tokens for authentication
