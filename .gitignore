@@ -37,8 +37,6 @@ db.sqlite3-journal
 /static
 
 # Environment variables
-.env
-.env.local
 
 # IDE
 .vscode/
@@ -76,3 +74,4 @@ Login credentials:
   approver1 / approver123 (approver_level_1)
   approver2 / approver123 (approver_level_2)
   finance1 / finance123 (finance)
+node_modules

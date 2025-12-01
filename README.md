@@ -28,7 +28,7 @@ A Django + React application for managing purchase requests with multi-level app
 
 1. **Clone and setup backend:**
 ```bash
-git clone <repository-url>
+git clone https://github.com/wakaflorien/procureToPay.git
 cd procuretopay
 
 # Create virtual environment
@@ -128,10 +128,10 @@ docker compose -f docker-compose.prod.yml exec backend python manage.py createsu
 
 ## User Roles
 
-- **Staff**: Create and manage own requests, upload documents ( sample user: username: staff1 password: staff123 )
-- **Approver Level 1**: Review and approve/reject requests (first level sample user: approver1, approver123 )
-- **Approver Level 2**: Review and approve/reject requests (second level sample user: approver2, approver123 )
-- **Finance**: View all requests and financial data ( sample user: finance1, finance123 )
+- **Staff**: Create and manage own requests, upload documents 
+- **Approver Level 1**: Review and approve/reject requests 
+- **Approver Level 2**: Review and approve/reject requests 
+- **Finance**: View all requests and financial data 
 
 ## Approval Workflow
 
