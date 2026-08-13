@@ -75,3 +75,6 @@ Login credentials:
   approver2 / approver123 (approver_level_2)
   finance1 / finance123 (finance)
 node_modules
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
