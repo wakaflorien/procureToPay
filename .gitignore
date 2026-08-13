@@ -76,6 +76,6 @@ Login credentials:
   finance1 / finance123 (finance)
 config.bat
 node_modules
+branch_structure.json
 temp_auto_push.bat
 temp_interactive_push.bat
-branch_structure.json
