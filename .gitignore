@@ -39,7 +39,6 @@ db.sqlite3-journal
 # Environment variables
 
 # IDE
-.vscode/
 .idea/
 *.swp
 *.swo
@@ -75,3 +74,4 @@ Login credentials:
   approver2 / approver123 (approver_level_2)
   finance1 / finance123 (finance)
 node_modules
+config.bat
